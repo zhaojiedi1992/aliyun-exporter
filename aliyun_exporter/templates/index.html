@@ -4,15 +4,15 @@
 <div>
     <table style="width: 100%;">
         <tr>
-            <th>Project</th>
+            <th>Namespace</th>
             <th>Description</th>
             <th>Labels</th>
         </tr>
-    {% for project in projects %}
+    {% for namespace in namespaces %}
         <tr>
-            <td><a href="/projects/{{ project['Project'] }}">{{ project['Project'] }}</a></td>
-            <td>{{ project['Description'] }}</td>
-            <td>{{ project['Labels'] }}</td>
+            <td><a href="/namespaces/{{ namespace['Namespace'] }}">{{ namespace['Namespace'] }}</a></td>
+            <td>{{ namespace['Description'] }}</td>
+            <td>{{ namespace['Labels'] }}</td>
         </tr>
     {% endfor %}
     </table>

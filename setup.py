@@ -30,16 +30,18 @@ setup(
     package_data={'aliyun_exporter': ['static/*','templates/*']},
     install_requires=[
         'prometheus-client',
-        'aliyun-python-sdk-cms==6.0.13',
+        'aliyun-python-sdk-cms==7.0.4',
         'aliyun-python-sdk-core-v3==2.13.3',
         'pyyaml',
         'ratelimiter',
         'flask',
         'cachetools',
-        'aliyun-python-sdk-ecs==4.16.5',
-        'aliyun-python-sdk-rds==2.3.2',
-        'aliyun-python-sdk-r-kvstore==2.0.5',
-        'aliyun-python-sdk-slb==3.2.8',
+        'aliyun-python-sdk-ecs==4.16.11',
+        'aliyun-python-sdk-rds==2.3.9',
+        'aliyun-python-sdk-r-kvstore==2.1.1',
+        'aliyun-python-sdk-slb==3.2.10',
+        'aliyun-python-sdk-dds==2.0.4',
+        'aliyun-python-sdk-domain==3.14.2',
     ],
     entry_points={
         'console_scripts': [

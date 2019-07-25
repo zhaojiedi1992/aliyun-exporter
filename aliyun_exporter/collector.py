@@ -7,7 +7,9 @@ from datetime import datetime, timedelta
 from prometheus_client import Summary
 from prometheus_client.core import GaugeMetricFamily, REGISTRY
 from aliyunsdkcore.client import AcsClient
-from aliyunsdkcms.request.v20180308 import QueryMetricLastRequest
+#from aliyunsdkcms.request.v20190101 import QueryMetricLastRequest
+#from aliyunsdkcms.request.v20190101 import DescribeMetricLastRequest as QueryMetricLastRequest
+from aliyunsdkcms.request.v20190101 import DescribeMetricLastRequest
 from aliyunsdkrds.request.v20140815 import DescribeDBInstancePerformanceRequest
 from ratelimiter import RateLimiter
 
@@ -73,9 +75,9 @@ class AliyunCollector(object):
 
     def query_metric(self, project: str, metric: str, period: int):
         with self.rateLimiter:
-            req = QueryMetricLastRequest.QueryMetricLastRequest()
-            req.set_Project(project)
-            req.set_Metric(metric)
+            req = DescribeMetricLastRequest.DescribeMetricLastRequest()
+            req.set_Namespace(project)
+            req.set_MetricName(metric)
             req.set_Period(period)
             start_time = time.time()
             try:

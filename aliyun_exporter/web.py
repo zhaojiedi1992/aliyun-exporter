@@ -8,8 +8,17 @@ from prometheus_client import make_wsgi_app
 from werkzeug.wsgi import DispatcherMiddleware
 
 from aliyun_exporter import CollectorConfig
-from aliyun_exporter.QueryMetricMetaRequest import QueryMetricMetaRequest
-from aliyun_exporter.QueryProjectMetaRequest import QueryProjectMetaRequest
+#from aliyun_exporter.QueryMetricMetaRequest import QueryMetricMetaRequest
+#from aliyun_exporter.QueryProjectMetaRequest import QueryProjectMetaRequest
+
+#from aliyun_exporter.QueryProjectMetaRequest import QueryProjectMetaRequest
+
+from aliyunsdkcms.request.v20190101.DescribeMetricMetaListRequest import DescribeMetricMetaListRequest
+#from aliyunsdkcms.request.v20190101.DescribeProjectMetaRequest import DescribeProjectMetaRequest
+
+from aliyun_exporter.DescribeNamespaceMetaRequest import DescribeNamespaceMetaRequest
+
+
 from aliyun_exporter.utils import format_metric, format_period
 
 
@@ -25,38 +34,38 @@ def create_app(config: CollectorConfig):
 
     @app.route("/")
     def projectIndex():
-        req = QueryProjectMetaRequest()
+        req = DescribeNamespaceMetaRequest()
         req.set_PageSize(100)
         try:
             resp = client.do_action_with_exception(req)
         except Exception as e:
             return render_template("error.html", errorMsg=e)
         data = json.loads(resp)
-        return render_template("index.html", projects=data["Resources"]["Resource"])
+        return render_template("index.html", namespaces=data["Resources"]["Resource"])
 
-    @app.route("/projects/<string:name>")
+    @app.route("/namespaces/<string:name>")
     def projectDetail(name):
-        req = QueryMetricMetaRequest()
+        req = DescribeMetricMetaListRequest()
         req.set_PageSize(100)
-        req.set_Project(name)
+        req.set_Namespace(name)
         try:
             resp = client.do_action_with_exception(req)
         except Exception as e:
             return render_template("error.html", errorMsg=e)
         data = json.loads(resp)
-        return render_template("detail.html", metrics=data["Resources"]["Resource"], project=name)
+        return render_template("detail.html", metrics=data["Resources"]["Resource"], namespace=name)
 
-    @app.route("/yaml/<string:name>")
+    @app.route("/yamls/<string:name>")
     def projectYaml(name):
-        req = QueryMetricMetaRequest()
+        req = DescribeMetricMetaListRequest()
         req.set_PageSize(100)
-        req.set_Project(name)
+        req.set_Namespace(name)
         try:
             resp = client.do_action_with_exception(req)
         except Exception as e:
             return render_template("error.html", errorMsg=e)
         data = json.loads(resp)
-        return render_template("yaml.html", metrics=data["Resources"]["Resource"], project=name)
+        return render_template("yaml.html", metrics=data["Resources"]["Resource"], namespace=name)
 
     app.jinja_env.filters['formatmetric'] = format_metric
     app.jinja_env.filters['formatperiod'] = format_period

@@ -8,6 +8,8 @@ import aliyunsdkecs.request.v20140526.DescribeInstancesRequest as DescribeECS
 import aliyunsdkrds.request.v20140815.DescribeDBInstancesRequest as DescribeRDS
 import aliyunsdkr_kvstore.request.v20150101.DescribeInstancesRequest as DescribeRedis
 import aliyunsdkslb.request.v20140515.DescribeLoadBalancersRequest as DescribeSLB
+import aliyunsdkdds.request.v20151201.DescribeDBInstancesRequest as DescribeMongodb
+from aliyunsdkdomain.request.v20180129.QueryDomainListRequest import QueryDomainListRequest
 
 from aliyun_exporter.utils import try_or_else
 
@@ -37,6 +39,8 @@ class InfoProvider():
             'rds': lambda : self.rds_info(),
             'redis': lambda : self.redis_info(),
             'slb':lambda : self.slb_info(),
+            'mongodb': lambda: self.mongodb_info(),
+            'dns':  lambda: self.dns_info(),
         }[resource]()
 
     def ecs_info(self) -> GaugeMetricFamily:
@@ -59,6 +63,14 @@ class InfoProvider():
     def slb_info(self) -> GaugeMetricFamily:
         req = DescribeSLB.DescribeLoadBalancersRequest()
         return self.info_template(req, 'aliyun_meta_slb_info', to_list=lambda data: data['LoadBalancers']['LoadBalancer'])
+
+    def mongodb_info(self) -> GaugeMetricFamily:
+        req = DescribeMongodb.DescribeDBInstancesRequest()
+        return self.info_template(req, 'aliyun_meta_mongodb_info', to_list=lambda data: data['DBInstances']['DBInstance'])
+
+    def dns_info(self) -> GaugeMetricFamily:
+        req = QueryDomainListRequest.DescribeDBInstancesRequest()
+        return self.info_template(req, 'aliyun_meta_dns_info', to_list=lambda data: data['Data']['Domain'])
 
     '''
     Template method to retrieve resource information and transform to metric.
