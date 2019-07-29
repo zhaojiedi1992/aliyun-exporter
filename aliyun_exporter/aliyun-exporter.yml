@@ -1,108 +1,57 @@
 metrics:
-  acs_slb_dashboard:
-  - name: ActiveConnection
+  acs_kvstore:
+  - name: ConnectionUsage
     period: 60
-  - name: DropConnection
+  - name: CpuUsage
     period: 60
-  - name: DropPacketRX
+  - name: FailedCount
     period: 60
-  - name: DropPacketTX
+  - name: IntranetIn
     period: 60
-  - name: DropTrafficRX
+  - name: IntranetInRatio
     period: 60
-  - name: DropTrafficTX
+  - name: IntranetOut
     period: 60
-#  - name: GroupTrafficRX
-#    period: 60
-#  - name: GroupTrafficTX
-#    period: 60
-  - name: HeathyServerCount
+  - name: IntranetOutRatio
     period: 60
-  - name: InactiveConnection
+  - name: MemoryUsage
     period: 60
-  - name: InstanceActiveConnection
+  - name: StandardConnectionUsage
     period: 60
-  - name: InstanceDropConnection
+  - name: StandardCpuUsage
     period: 60
-  - name: InstanceDropPacketRX
+  - name: StandardEvictedKeys
     period: 60
-  - name: InstanceDropPacketTX
+  - name: StandardExpiredKeys
     period: 60
-  - name: InstanceDropTrafficRX
+  - name: StandardExpires
     period: 60
-  - name: InstanceDropTrafficTX
+  - name: StandardFailedCount
     period: 60
-  - name: InstanceInactiveConnection
+  - name: StandardHitRate
     period: 60
-  - name: InstanceMaxConnection
+  - name: StandardIntranetIn
     period: 60
-  - name: InstanceMaxConnectionUtilization
+  - name: StandardIntranetOut
     period: 60
-  - name: InstanceNewConnection
+  - name: StandardIntranetInRatio
     period: 60
-  - name: InstanceNewConnectionUtilization
+  - name: StandardIntranetOutRatio
     period: 60
-  - name: InstancePacketRX
+  - name: StandardKeys
     period: 60
-  - name: InstancePacketTX
+  - name: StandardMemoryUsage
     period: 60
-  - name: InstanceQps
+  - name: StandardQPSUsage
     period: 60
-  - name: InstanceQpsUtilization
+  - name: StandardUsedConnection
     period: 60
-  - name: InstanceRt
+  - name: StandardUsedMemory
     period: 60
-  - name: InstanceStatusCode2xx
+  - name: StandardUsedQPS
     period: 60
-  - name: InstanceStatusCode3xx
+  - name: StandardAvgRt
     period: 60
-  - name: InstanceStatusCode4xx
+  - name: StandardMaxRt
     period: 60
-  - name: InstanceStatusCode5xx
-    period: 60
-  - name: InstanceStatusCodeOther
-    period: 60
-  - name: InstanceTrafficRX
-    period: 60
-  - name: InstanceTrafficTX
-    period: 60
-  - name: InstanceUpstreamCode4xx
-    period: 60
-  - name: InstanceUpstreamCode5xx
-    period: 60
-  - name: InstanceUpstreamRt
-    period: 60
-  - name: MaxConnection
-    period: 60
-  - name: NewConnection
-    period: 60
-  - name: PacketRX
-    period: 60
-  - name: PacketTX
-    period: 60
-  - name: Qps
-    period: 60
-  - name: Rt
-    period: 60
-  - name: StatusCode2xx
-    period: 60
-  - name: StatusCode3xx
-    period: 60
-  - name: StatusCode4xx
-    period: 60
-  - name: StatusCode5xx
-    period: 60
-  - name: StatusCodeOther
-    period: 60
-  - name: TrafficRXNew
-    period: 60
-  - name: TrafficTXNew
-    period: 60
-  - name: UnhealthyServerCount
-    period: 60
-  - name: UpstreamCode4xx
-    period: 60
-  - name: UpstreamCode5xx
-    period: 60
-  - name: UpstreamRt
-    period: 60
+
