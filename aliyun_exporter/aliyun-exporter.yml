@@ -1,57 +1,5 @@
 metrics:
-  acs_kvstore:
-  - name: ConnectionUsage
-    period: 60
-  - name: CpuUsage
-    period: 60
-  - name: FailedCount
-    period: 60
-  - name: IntranetIn
-    period: 60
-  - name: IntranetInRatio
-    period: 60
-  - name: IntranetOut
-    period: 60
-  - name: IntranetOutRatio
-    period: 60
-  - name: MemoryUsage
-    period: 60
-  - name: StandardConnectionUsage
-    period: 60
-  - name: StandardCpuUsage
-    period: 60
-  - name: StandardEvictedKeys
-    period: 60
-  - name: StandardExpiredKeys
-    period: 60
-  - name: StandardExpires
-    period: 60
-  - name: StandardFailedCount
-    period: 60
-  - name: StandardHitRate
-    period: 60
-  - name: StandardIntranetIn
-    period: 60
-  - name: StandardIntranetOut
-    period: 60
-  - name: StandardIntranetInRatio
-    period: 60
-  - name: StandardIntranetOutRatio
-    period: 60
-  - name: StandardKeys
-    period: 60
-  - name: StandardMemoryUsage
-    period: 60
-  - name: StandardQPSUsage
-    period: 60
-  - name: StandardUsedConnection
-    period: 60
-  - name: StandardUsedMemory
-    period: 60
-  - name: StandardUsedQPS
-    period: 60
-  - name: StandardAvgRt
-    period: 60
-  - name: StandardMaxRt
+  acs_slb_dashboard:
+  - name: InstanceActiveConnection
     period: 60
 

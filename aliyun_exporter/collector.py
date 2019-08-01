@@ -97,7 +97,9 @@ class AliyunCollector(object):
             return points
 
     def parse_label_keys(self, point):
-        return [k for k in point if k not in ['timestamp', 'Maximum', 'Minimum', 'Average']]
+        return [k for k in point if k not in ['timestamp', 'Maximum', 'Minimum', 'Average',"Sum"]]
+
+
 
     def format_metric_name(self, project, name):
         return 'aliyun_{}_{}'.format(project, name)
