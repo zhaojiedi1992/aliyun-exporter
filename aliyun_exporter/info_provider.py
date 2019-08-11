@@ -87,7 +87,7 @@ class InfoProvider():
         return self.info_template(req, 'aliyun_meta_nat_info', to_list=lambda data: data['NatGateways']['NatGateway'],page_size=50)
     def vpn_info(self) -> GaugeMetricFamily:
         req = DescribeVpnGatewaysRequest()
-        return self.info_template(req, 'aliyun_vpn_nat_info', to_list=lambda data: data['VpnGateways']['VpnGateway'],page_size=50)
+        return self.info_template(req, 'aliyun_meta_vpn_info', to_list=lambda data: data['VpnGateways']['VpnGateway'],page_size=50)
 
     '''
     Template method to retrieve resource information and transform to metric.
