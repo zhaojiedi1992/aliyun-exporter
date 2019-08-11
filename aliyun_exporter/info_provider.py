@@ -13,7 +13,6 @@ from aliyunsdkdomain.request.v20180129.QueryDomainListRequest import QueryDomain
 from aliyunsdkvpc.request.v20160428.DescribeEipAddressesRequest import DescribeEipAddressesRequest
 from aliyunsdkvpc.request.v20160428.DescribeNatGatewaysRequest import DescribeNatGatewaysRequest
 from aliyunsdkvpc.request.v20160428.DescribeVpnGatewaysRequest import DescribeVpnGatewaysRequest
-from aliyun.log.project_response import ListProjectResponse
 
 from aliyun_exporter.utils import try_or_else
 
