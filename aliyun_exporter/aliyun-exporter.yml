@@ -1,25 +1,32 @@
 
 
 info_metrics:
-  - eip
+  - nat
 
 metrics:
-  acs_vpc_eip:
-  - name: net_tx.rate
-    measure: Value
+  acs_nat_gateway:
+  - name: SnatConnection
+    measure: Maximum
     period: 60
   - name: net_rx.rate
     measure: Value
     period: 60
-  - name: net_txPkgs.rate
+  - name: net_tx.rate
     measure: Value
     period: 60
-  - name: net_rxPkgs.rate
+  - name: net_rx.Pkgs
     measure: Value
     period: 60
-  - name: out_ratelimit_drop_speed
-    measure: Average
+  - name: net_tx.Pkgs
+    measure: Value
     period: 60
-
-
+  - name: net_tx.ratePercent
+    measure: Value
+    period: 60
+  - name: SnatConnectionDrop_ConcurrentConnectionLimit
+    measure: Maximum
+    period: 60
+  - name: SnatConnectionDrop_ConnectionRateLimit
+    measure: Maximum
+    period: 60
 
