@@ -44,7 +44,7 @@ setup(
         'aliyun-python-sdk-vpc==3.0.5',
         'aliyun-python-sdk-cdn==3.0.8',
         'aliyun-python-sdk-domain==3.14.2',
-        'aliyun-log-python-sdk==0.6.45',
+        #'aliyun-log-python-sdk==0.6.45',
     ],
     entry_points={
         'console_scripts': [
