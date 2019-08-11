@@ -41,6 +41,7 @@ setup(
         'aliyun-python-sdk-r-kvstore==2.1.1',
         'aliyun-python-sdk-slb==3.2.10',
         'aliyun-python-sdk-dds==2.0.4',
+        'aliyun-python-sdk-vpc==3.0.5',
         'aliyun-python-sdk-domain==3.14.2',
     ],
     entry_points={

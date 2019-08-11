@@ -7,8 +7,8 @@ from datetime import datetime, timedelta
 from prometheus_client import Summary
 from prometheus_client.core import GaugeMetricFamily, REGISTRY
 from aliyunsdkcore.client import AcsClient
-#from aliyunsdkcms.request.v20190101 import QueryMetricLastRequest
-#from aliyunsdkcms.request.v20190101 import DescribeMetricLastRequest as QueryMetricLastRequest
+# from aliyunsdkcms.request.v20190101 import QueryMetricLastRequest
+# from aliyunsdkcms.request.v20190101 import DescribeMetricLastRequest as QueryMetricLastRequest
 from aliyunsdkcms.request.v20190101 import DescribeMetricLastRequest
 from aliyunsdkrds.request.v20140815 import DescribeDBInstancePerformanceRequest
 from ratelimiter import RateLimiter
@@ -18,11 +18,13 @@ from aliyun_exporter.utils import try_or_else
 
 rds_performance = 'rds_performance'
 special_projects = {
-    rds_performance: lambda collector : RDSPerformanceCollector(collector),
+    rds_performance: lambda collector: RDSPerformanceCollector(collector),
 }
 
 requestSummary = Summary('cloudmonitor_request_latency_seconds', 'CloudMonitor request latency', ['project'])
-requestFailedSummary = Summary('cloudmonitor_failed_request_latency_seconds', 'CloudMonitor failed request latency', ['project'])
+requestFailedSummary = Summary('cloudmonitor_failed_request_latency_seconds', 'CloudMonitor failed request latency',
+                               ['project'])
+
 
 class CollectorConfig(object):
     def __init__(self,
@@ -56,6 +58,7 @@ class CollectorConfig(object):
                 self.credential['access_key_secret'] is None:
             raise Exception('Credential is not fully configured.')
 
+
 class AliyunCollector(object):
     def __init__(self, config: CollectorConfig):
         self.metrics = config.metrics
@@ -71,7 +74,6 @@ class AliyunCollector(object):
         for k, v in special_projects.items():
             if k in self.metrics:
                 self.special_collectors[k] = v(self)
-
 
     def query_metric(self, project: str, metric: str, period: int):
         with self.rateLimiter:
@@ -93,13 +95,13 @@ class AliyunCollector(object):
             points = json.loads(data['Datapoints'])
             return points
         else:
-            logging.error('Error query metrics for {}_{}, the response body don not have Datapoints field, please check you permission or workload' .format(project, metric))
+            logging.error(
+                'Error query metrics for {}_{}, the response body don not have Datapoints field, please check you permission or workload'.format(
+                    project, metric))
             return points
 
     def parse_label_keys(self, point):
-        return [k for k in point if k not in ['timestamp', 'Maximum', 'Minimum', 'Average',"Sum"]]
-
-
+        return [k for k in point if k not in ['timestamp', 'Maximum', 'Minimum', 'Average', "Sum"]]
 
     def format_metric_name(self, project, name):
         return 'aliyun_{}_{}'.format(project, name)
@@ -113,6 +115,8 @@ class AliyunCollector(object):
         measure = 'Average'
         if 'rename' in metric:
             name = metric['rename']
+        if "." in name:
+            name = name.replace(".", "_")
         if 'period' in metric:
             period = metric['period']
         if 'measure' in metric:
@@ -145,7 +149,6 @@ class AliyunCollector(object):
                 yield self.info_provider.get_metrics(resource)
         for v in self.special_collectors.values():
             yield from v.collect()
-
 
 
 def metric_up_gauge(resource: str, succeeded=True):

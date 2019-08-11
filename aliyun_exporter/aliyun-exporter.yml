@@ -1,5 +1,25 @@
+
+
+info_metrics:
+  - eip
+
 metrics:
-  acs_slb_dashboard:
-  - name: InstanceActiveConnection
+  acs_vpc_eip:
+  - name: net_tx.rate
+    measure: Value
     period: 60
+  - name: net_rx.rate
+    measure: Value
+    period: 60
+  - name: net_txPkgs.rate
+    measure: Value
+    period: 60
+  - name: net_rxPkgs.rate
+    measure: Value
+    period: 60
+  - name: out_ratelimit_drop_speed
+    measure: Average
+    period: 60
+
+
 

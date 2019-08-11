@@ -10,7 +10,7 @@ import aliyunsdkr_kvstore.request.v20150101.DescribeInstancesRequest as Describe
 import aliyunsdkslb.request.v20140515.DescribeLoadBalancersRequest as DescribeSLB
 import aliyunsdkdds.request.v20151201.DescribeDBInstancesRequest as DescribeMongodb
 from aliyunsdkdomain.request.v20180129.QueryDomainListRequest import QueryDomainListRequest
-
+from aliyunsdkvpc.request.v20160428.DescribeEipAddressesRequest import DescribeEipAddressesRequest
 from aliyun_exporter.utils import try_or_else
 
 cache = TTLCache(maxsize=100, ttl=3600)
@@ -41,6 +41,7 @@ class InfoProvider():
             'slb':lambda : self.slb_info(),
             'mongodb': lambda: self.mongodb_info(),
             'dns':  lambda: self.dns_info(),
+            'eip': lambda : self.eip_info(),
         }[resource]()
 
     def ecs_info(self) -> GaugeMetricFamily:
@@ -72,6 +73,9 @@ class InfoProvider():
         req = QueryDomainListRequest.DescribeDBInstancesRequest()
         return self.info_template(req, 'aliyun_meta_dns_info', to_list=lambda data: data['Data']['Domain'])
 
+    def eip_info(self) -> GaugeMetricFamily:
+        req = DescribeEipAddressesRequest()
+        return self.info_template(req, 'aliyun_meta_eip_info', to_list=lambda data: data['EipAddresses']['EipAddress'])
     '''
     Template method to retrieve resource information and transform to metric.
     '''
