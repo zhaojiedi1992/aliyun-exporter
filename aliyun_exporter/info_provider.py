@@ -12,6 +12,8 @@ import aliyunsdkdds.request.v20151201.DescribeDBInstancesRequest as DescribeMong
 from aliyunsdkdomain.request.v20180129.QueryDomainListRequest import QueryDomainListRequest
 from aliyunsdkvpc.request.v20160428.DescribeEipAddressesRequest import DescribeEipAddressesRequest
 from aliyunsdkvpc.request.v20160428.DescribeNatGatewaysRequest import DescribeNatGatewaysRequest
+from aliyunsdkvpc.request.v20160428.DescribeVpnGatewaysRequest import DescribeVpnGatewaysRequest
+from aliyun.log.project_response import ListProjectResponse
 
 from aliyun_exporter.utils import try_or_else
 
@@ -45,6 +47,7 @@ class InfoProvider():
             'dns':  lambda: self.dns_info(),
             'eip': lambda : self.eip_info(),
             'nat': lambda : self.nat_info(),
+            'vpn': lambda:  self.vpn_info(),
         }[resource]()
 
     def ecs_info(self) -> GaugeMetricFamily:
@@ -83,6 +86,9 @@ class InfoProvider():
     def nat_info(self) -> GaugeMetricFamily:
         req = DescribeNatGatewaysRequest()
         return self.info_template(req, 'aliyun_meta_nat_info', to_list=lambda data: data['NatGateways']['NatGateway'],page_size=50)
+    def vpn_info(self) -> GaugeMetricFamily:
+        req = DescribeVpnGatewaysRequest()
+        return self.info_template(req, 'aliyun_vpn_nat_info', to_list=lambda data: data['VpnGateways']['VpnGateway'],page_size=50)
 
     '''
     Template method to retrieve resource information and transform to metric.

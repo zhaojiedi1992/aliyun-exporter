@@ -1,13 +1,11 @@
 
 
 info_metrics:
-  - nat
+  - vpn
+
 
 metrics:
-  acs_nat_gateway:
-  - name: SnatConnection
-    measure: Maximum
-    period: 60
+  acs_vpn:
   - name: net_rx.rate
     measure: Value
     period: 60
@@ -20,13 +18,3 @@ metrics:
   - name: net_tx.Pkgs
     measure: Value
     period: 60
-  - name: net_tx.ratePercent
-    measure: Value
-    period: 60
-  - name: SnatConnectionDrop_ConcurrentConnectionLimit
-    measure: Maximum
-    period: 60
-  - name: SnatConnectionDrop_ConnectionRateLimit
-    measure: Maximum
-    period: 60
-
