@@ -1,20 +1,23 @@
 
 
 info_metrics:
-  - vpn
+  - kafka
 
 
 metrics:
-  acs_vpn:
-  - name: net_rx.rate
+  acs_kafka:
+  - name: instance_disk_capacity
+    measure: Maximum
+    period: 60
+  - name: instance_message_input
     measure: Value
     period: 60
-  - name: net_tx.rate
+  - name: instance_message_output
     measure: Value
     period: 60
-  - name: net_rx.Pkgs
+  - name: topic_message_input
     measure: Value
     period: 60
-  - name: net_tx.Pkgs
+  - name: topic_message_output
     measure: Value
     period: 60
