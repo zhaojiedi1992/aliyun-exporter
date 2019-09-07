@@ -38,7 +38,7 @@ class InfoProvider():
     def __init__(self, client: AcsClient):
         self.client = client
 
-    #@cached(cache)
+    @cached(cache)
     def get_metrics(self, resource: str) -> GaugeMetricFamily:
         return {
             'ecs': lambda: self.ecs_info(),
