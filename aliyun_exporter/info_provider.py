@@ -38,7 +38,7 @@ class InfoProvider():
     def __init__(self, client: AcsClient):
         self.client = client
 
-    @cached(cache)
+    #@cached(cache)
     def get_metrics(self, resource: str) -> GaugeMetricFamily:
         return {
             'ecs': lambda: self.ecs_info(),
@@ -50,7 +50,7 @@ class InfoProvider():
             'eip': lambda: self.eip_info(),
             'nat': lambda: self.nat_info(),
             'vpn': lambda: self.vpn_info(),
-            'bandwidth': lambda : self.bandwidth_info(),
+            'bandwidth': lambda: self.bandwidth_info(),
             'kafka': lambda: self.kafka_info()
         }[resource]()
 
@@ -102,9 +102,12 @@ class InfoProvider():
 
     def bandwidth_info(self) -> GaugeMetricFamily:
         req = DescribeCommonBandwidthPackagesRequest()
-        return self.info_template(req, 'aliyun_meta_bandwidth_info', to_list=lambda data: data['CommonBandwidthPackages']['CommonBandwidthPackage'],
+        return self.info_template(req, 'aliyun_meta_bandwidth_info',
+                                  to_list=lambda data: data['CommonBandwidthPackages']['CommonBandwidthPackage'],
                                   page_size=50)
+
     def kafka_info(self) -> GaugeMetricFamily:
+        print("abc")
         req = CommonRequest()
         req.set_accept_format('json')
         req.set_domain('alikafka.cn-beijing.aliyuncs.com')
@@ -112,7 +115,9 @@ class InfoProvider():
         req.set_protocol_type('https')  # https | http
         req.set_version('2018-10-15')
         req.set_action_name('GetInstanceList')
-        return self.info_template_without_page(req, 'aliyun_meta_kafka_info', to_list=lambda data: data['InstanceList']['InstanceVO'] )
+        return self.info_template_without_page(req, 'aliyun_meta_kafka_info',
+                                               to_list=lambda data: data['InstanceList']['InstanceVO'])
+
     '''
     Template method to retrieve resource information and transform to metric.
     '''
@@ -135,11 +140,11 @@ class InfoProvider():
         return gauge
 
     def info_template_without_page(self,
-                      req,
-                      name,
-                      desc='',
-                      nested_handler=None,
-                      to_list=(lambda data: data['Instances']['Instance'])) -> GaugeMetricFamily:
+                                   req,
+                                   name,
+                                   desc='',
+                                   nested_handler=None,
+                                   to_list=(lambda data: data['Instances']['Instance'])) -> GaugeMetricFamily:
         gauge = None
         label_keys = None
         resp = self.client.do_action_with_exception(req)
@@ -151,6 +156,7 @@ class InfoProvider():
                 gauge = GaugeMetricFamily(name, desc, labels=label_keys)
             gauge.add_metric(labels=self.label_values(instance, label_keys, nested_handler), value=1.0)
         return gauge
+
     def pager_generator(self, req, page_size, page_num, to_list):
         req.set_PageSize(page_size)
         while True:

@@ -1,23 +1,7 @@
 
 
 info_metrics:
-  - kafka
+- kafka
 
 
-metrics:
-  acs_kafka:
-  - name: instance_disk_capacity
-    measure: Maximum
-    period: 60
-  - name: instance_message_input
-    measure: Value
-    period: 60
-  - name: instance_message_output
-    measure: Value
-    period: 60
-  - name: topic_message_input
-    measure: Value
-    period: 60
-  - name: topic_message_output
-    measure: Value
-    period: 60
+metrics: {}
