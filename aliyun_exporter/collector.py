@@ -134,7 +134,8 @@ class AliyunCollector(object):
         label_keys = self.parse_label_keys(points[0])
         gauge = GaugeMetricFamily(self.format_metric_name(project, name), '', labels=label_keys)
         for point in points:
-            gauge.add_metric([try_or_else(lambda: str(point[k]), '') for k in label_keys], point[measure])
+            gauge.add_metric([try_or_else(lambda: str(point[k]), '') for k in label_keys], point[measure],
+                             timestamp=point["timestamp"])
         yield gauge
         yield metric_up_gauge(self.format_metric_name(project, name), True)
 

@@ -4,4 +4,8 @@ info_metrics:
 - kafka
 
 
-metrics: {}
+metrics:
+  acs_kafka:
+  - name: instance_disk_capacity
+    measure: Maximum
+    period: 60
