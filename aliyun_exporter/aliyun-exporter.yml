@@ -1,7 +1,7 @@
 
 
 info_metrics:
-- kafka
+- mq
 
 
 metrics:

@@ -14,6 +14,7 @@ from aliyunsdkvpc.request.v20160428.DescribeEipAddressesRequest import DescribeE
 from aliyunsdkvpc.request.v20160428.DescribeNatGatewaysRequest import DescribeNatGatewaysRequest
 from aliyunsdkvpc.request.v20160428.DescribeVpnGatewaysRequest import DescribeVpnGatewaysRequest
 from aliyunsdkvpc.request.v20160428.DescribeCommonBandwidthPackagesRequest import DescribeCommonBandwidthPackagesRequest
+from aliyunsdkons.request.v20190214.OnsTopicListRequest import OnsTopicListRequest
 from aliyunsdkcore.request import CommonRequest
 from aliyun_exporter.utils import try_or_else
 
@@ -51,7 +52,8 @@ class InfoProvider():
             'nat': lambda: self.nat_info(),
             'vpn': lambda: self.vpn_info(),
             'bandwidth': lambda: self.bandwidth_info(),
-            'kafka': lambda: self.kafka_info()
+            'kafka': lambda: self.kafka_info(),
+            'mq': lambda: self.mq_info(),
         }[resource]()
 
     def ecs_info(self) -> GaugeMetricFamily:
@@ -107,7 +109,6 @@ class InfoProvider():
                                   page_size=50)
 
     def kafka_info(self) -> GaugeMetricFamily:
-        print("abc")
         req = CommonRequest()
         req.set_accept_format('json')
         req.set_domain('alikafka.cn-beijing.aliyuncs.com')
@@ -117,6 +118,12 @@ class InfoProvider():
         req.set_action_name('GetInstanceList')
         return self.info_template_without_page(req, 'aliyun_meta_kafka_info',
                                                to_list=lambda data: data['InstanceList']['InstanceVO'])
+
+    def mq_info(self) -> GaugeMetricFamily:
+        req = OnsTopicListRequest()
+        req.set_accept_format('json')
+        return self.info_template_without_page(req, 'aliyun_meta_mq_info',
+                                               to_list=lambda data: data['Data']['PublishInfoDo'])
 
     '''
     Template method to retrieve resource information and transform to metric.
